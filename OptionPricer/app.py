@@ -10,9 +10,10 @@ sim_strategy = None
 option_type = st.selectbox("Option Type", ["CALL", "PUT"])
 underlying_price = st.number_input("Underlying Price", value=100.0, step=0.01)
 strike = st.number_input("Strike Price", value=100.0, step=0.001)
-time_to_maturity = st.number_input("Time to Maturity in years", value=1.0, step=0.01)
-r = st.number_input("Risk-Free Rate", value=0.05, step=0.001)
-volatility = st.number_input("Volatility (σ)", value=0.2, step=0.01)
+maturity_date = st.date_input("Maturity Date")
+r = st.number_input("Risk-Free Rate", value=0.05, step=0.000001, format="%.6f")
+volatility = st.number_input("Volatility (σ)", value=0.2, step=0.000001, format="%.6f")
+exercise_ratio = st.number_input("Exercise ratio", value=0.1, step=0.001)
 sim_strategy_type = st.selectbox("Calculation method", ["BlackScholes","MonteCarlo"])
 
 if sim_strategy_type == "MonteCarlo":
@@ -22,7 +23,7 @@ elif sim_strategy_type == "BlackScholes":
 
 
 if st.button("Start Calculation"):
-    price = sim_strategy.calculate(option_type, underlying_price, strike, time_to_maturity, r, volatility)
+    price = sim_strategy.calculate(option_type, underlying_price, strike, maturity_date, r, volatility, exercise_ratio)
     st.text(f"Calculated price: {price}")
 
 # Compute Option Price

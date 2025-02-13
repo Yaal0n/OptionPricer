@@ -1,3 +1,5 @@
+import datetime
+
 from SimulationStrategy import SimulationStrategy
 import numpy as np
 from scipy.stats import norm
@@ -7,23 +9,19 @@ class BlackScholes(SimulationStrategy):
     def __init__(self):
         super().__init__()
 
-    def calculate(self, option_type, underlying_price, strike, time_to_maturity, risk_free_rate, volatility):
-        S = underlying_price
-        K = strike
-        T = time_to_maturity
-        r = risk_free_rate
-        sigma = volatility
+    def calculate(self, option_type, underlying_price, strike, maturity_date, risk_free_rate, volatility, exercise_ratio):
+        time_to_maturity_years = (maturity_date - datetime.date.today()).days / 365.0
 
-        # Compute intermediary values for Black-Scholes formula
-        numerator = np.log(S / K) + (r + 0.5 * sigma ** 2) * T
-        denominator = sigma * np.sqrt(T)
-        standardized_return = numerator / denominator
-        adjusted_return = standardized_return - sigma * np.sqrt(T)
+        ratio_underlying_price_strike = underlying_price/strike
+        variance = pow(volatility,2)
+        discount_factor = np.exp(-risk_free_rate*time_to_maturity_years)
 
-        # Compute option price
+
+
+        d1 = (np.log(ratio_underlying_price_strike) + (risk_free_rate+variance/2)*time_to_maturity_years)/(volatility*np.sqrt(time_to_maturity_years))
+        d2 = (np.log(ratio_underlying_price_strike) + (risk_free_rate-variance/2)*time_to_maturity_years)/(volatility*np.sqrt(time_to_maturity_years))
+
         if option_type == "CALL":
-            return S * norm.cdf(standardized_return) - K * np.exp(-r * T) * norm.cdf(adjusted_return)
-        elif option_type == "PUT":
-            return K * np.exp(-r * T) * norm.cdf(-adjusted_return) - S * norm.cdf(-standardized_return)
+            return (underlying_price*norm.cdf(d1)-strike*discount_factor*norm.cdf(d2))*exercise_ratio
         else:
-            raise ValueError("option_type must be 'call' or 'put'")
+            return (-underlying_price*norm.cdf(-d1)+strike*discount_factor*norm.cdf(-d2))*exercise_ratio
