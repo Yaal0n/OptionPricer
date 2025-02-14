@@ -80,6 +80,9 @@ with st.sidebar:
 
     # --- CALCULATE OPTION PRICE BUTTON ---
     if st.button("Calculate Option Price"):
+        if sim_strategy_type == "MonteCarlo":
+            st.warning("Calculation using MonteCarlo simulation has not been implemented yet!")
+
         st.session_state.call_price, st.session_state.put_price, st.session_state.greeks = sim_strategy.calculate(
             st.session_state.underlying_price,
             st.session_state.strike,
