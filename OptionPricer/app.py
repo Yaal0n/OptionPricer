@@ -69,8 +69,8 @@ with st.sidebar:
     st.session_state.strike = st.number_input("Strike Price", value=100.0, step=0.001)
     st.session_state.maturity_date = st.date_input("Maturity Date", min_value=datetime.date.today())
 
-    st.session_state.r = st.number_input("Risk-Free Rate", value=0.05, step=0.000001, format="%.6f")
-    st.session_state.volatility = st.number_input("Volatility (σ)", value=0.2, step=0.000001, format="%.6f")
+    st.session_state.r = st.number_input("Risk-Free Rate", value=0.05, step=0.0001, format="%.4f")
+    st.session_state.volatility = st.number_input("Volatility (σ)", value=0.2, step=0.0001, format="%.4f")
     st.session_state.exercise_ratio = st.number_input("Exercise Ratio", value=0.1, step=0.001)
 
     sim_strategy_type = st.selectbox("Calculation Method", ["BlackScholes", "MonteCarlo"])
@@ -105,8 +105,8 @@ with st.sidebar:
         st.metric(label="Delta (PUT)", value=f"{st.session_state.greeks['delta_put']:.4f}")
         st.metric(label="Gamma", value=f"{st.session_state.greeks['gamma']:.4f}")
         st.metric(label="Vega", value=f"{st.session_state.greeks['vega']:.4f}")
-        st.metric(label="Theta (CALL)", value=f"{st.session_state.greeks['theta_call']:.4f}")
-        st.metric(label="Theta (PUT)", value=f"{st.session_state.greeks['theta_put']:.4f}")
+        st.metric(label="Daily-Theta (CALL)", value=f"{st.session_state.greeks['theta_call']:.4f}")
+        st.metric(label="Daily-Theta (PUT)", value=f"{st.session_state.greeks['theta_put']:.4f}")
         st.metric(label="Rho (CALL)", value=f"{st.session_state.greeks['rho_call']:.4f}")
         st.metric(label="Rho (PUT)", value=f"{st.session_state.greeks['rho_put']:.4f}")
 
