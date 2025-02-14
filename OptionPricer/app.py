@@ -50,17 +50,17 @@ with st.sidebar:
     )
 
     # GitHub repository button with GitHub logo
-    st.markdown(
-        """
-        <a href="https://github.com/Yaal0n" target="_blank">
-            <button style="color: white; padding: 10px 15px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%;">
-                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" style="vertical-align: middle; margin-right: 5px;">
-                GitHub Repository
-            </button>
-        </a>
-        """,
-        unsafe_allow_html=True
-    )
+    # st.markdown(
+    #     """
+    #     <a href="https://github.com/Yaal0n" target="_blank">
+    #         <button style="color: white; padding: 10px 15px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%;">
+    #             <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" style="vertical-align: middle; margin-right: 5px;">
+    #             GitHub Repository
+    #         </button>
+    #     </a>
+    #     """,
+    #     unsafe_allow_html=True
+    # )
 
 
     st.markdown("## 📋 Input Parameters")
