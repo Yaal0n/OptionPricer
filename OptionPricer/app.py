@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from BlackScholes import BlackScholes
 from MonteCarlo import MonteCarlo
-import logging
 
 # Set page layout
 st.set_page_config(page_title="Option Pricing Calculator", layout="wide")
